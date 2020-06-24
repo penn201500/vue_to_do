@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Vue Todo</title>
+    <style>
+        .empty {
+            border-color: red;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
-    <input type="text" v-model="value">
+    <input type="text" v-bind:class='{empty: !count}' v-model="value">
     <input type="button" value="发送" v-on:click="send">
     <div>value is : {{value}}</div>
     <div>count is : {{count}}</div>
