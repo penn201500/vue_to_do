@@ -13,7 +13,7 @@
 <div id="app">
     <input type="text" v-bind:class='{empty: !count}' v-model="value">
     <input type="button" value="发送" v-on:click="send">
-    <div>value is : {{value}}</div>
+    <div v-if="count">value is : {{value}}</div>
     <div>count is : {{count}}</div>
 </div>
 </body>
@@ -26,6 +26,10 @@
         },
         methods: {
             send: function() {
+                if (!this.count) {
+                    alert('pls input something: ');
+                    return
+                }
                 alert('send success');
                 this.value = ''
             }
