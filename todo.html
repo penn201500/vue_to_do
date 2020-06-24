@@ -7,7 +7,7 @@
 <body>
 <div id="app">
     <input type="text" v-model="value">
-    <input type="button" value="发送">
+    <input type="button" value="发送" v-on:click="send">
     <div>value is : {{value}}</div>
 </div>
 </body>
@@ -17,6 +17,12 @@
         el: '#app',
         data: function () {
             return {value: 'xxxy'}
+        },
+        methods: {
+            send: function() {
+                alert('send success');
+                this.value = ''
+            }
         }
     })
 </script>
