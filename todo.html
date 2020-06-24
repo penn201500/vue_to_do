@@ -9,6 +9,7 @@
     <input type="text" v-model="value">
     <input type="button" value="发送" v-on:click="send">
     <div>value is : {{value}}</div>
+    <div>count is : {{count}}</div>
 </div>
 </body>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
@@ -22,6 +23,11 @@
             send: function() {
                 alert('send success');
                 this.value = ''
+            }
+        },
+        computed: {
+            count: function() {
+                return this.value.length
             }
         }
     })
