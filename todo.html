@@ -10,33 +10,42 @@
     </style>
 </head>
 <body>
-<div id="app">
-    <input type="text" v-bind:class='{empty: !count}' v-model="value">
-    <input type="button" value="发送" v-on:click="send">
-    <div v-if="count">value is : {{value}}</div>
-    <div>count is : {{count}}</div>
+<div id="todo-app">
+    <input type="text"
+           v-bind:class='{empty: emptyChecked}'
+           placeholder="add todo"
+           v-model="newTodoTitle"
+           @keyup.enter="addTodo"
+           />
+    <span v-if="emptyChecked" style="color: red">请输入内容！</span>
 </div>
 </body>
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
 <script>
+    let id = 0; // 用于 id 生成
     var app = new Vue({
-        el: '#app',
+        el: '#todo-app',
         data: function () {
-            return {value: 'xxxy'}
+            return {
+                todos: [],
+                newTodoTitle: '',
+                checkEmpty: false // 增加一个检查空值标志
+            }
         },
         methods: {
-            send: function() {
-                if (!this.count) {
-                    alert('pls input something: ');
+            addTodo: function () {
+                if (this.newTodoTitle === '') {
+                    this.checkEmpty = true;
                     return
                 }
-                alert('send success');
-                this.value = ''
+                this.todos.push({id: id++, title: this.newTodoTitle});
+                this.newTodoTitle = '';
+                this.checkEmpty = false;
             }
         },
         computed: {
-            count: function() {
-                return this.value.length
+            emptyChecked: function () {
+                return this.newTodoTitle.length === 0 && this.checkEmpty
             }
         }
     })
