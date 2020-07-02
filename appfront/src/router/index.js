@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Element from 'element-ui'
+import ElementUI from 'element-ui'
 import vueResource from 'vue-resource'
+import 'element-ui/lib/theme-chalk/table.css'
+
 Vue.use(vueResource, vueResource)
 Vue.use(Router)
-Vue.use(Element)
+Vue.use(ElementUI)
 
 export default new Router({
   proxyTable: {

@@ -7,7 +7,7 @@
     </el-row>
     <el-row>
       <el-table :data="todoList" style="width: 100%" border>
-        <el-table-column prop="id" label="id" min-width="90">
+        <el-table-column prop="id" label="id" min-width="100">
           <template slot-scope="scope"> {{ scope.row.pk }}</template>
         </el-table-column>
         <el-table-column prop="priority" label="priority" min-width="100">
@@ -68,44 +68,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .el-col {
-    min-height: 50px
-  }
-  /*.el-table--border, .el-table--group{*/
-  /*  border: 10px;*/
-  /*}*/
-  /*.el-table__header-wrapper th:nth-last-of-type(2){*/
-  /*  border-right: 10px;*/
-  /*}*/
-  /*.el-table--border td:nth-last-of-type(1){*/
-  /*  border-right: 10px;*/
-  /*}*/
-  /*.el-table--border::after, .el-table--group::after{*/
-  /*  width: 10%;*/
-  /*}*/
-  .el-table--border:after,
-  .el-table--group:after,
-  .el-table:before {
+  .el-table--border:after, .el-table--group:after, .el-table:before {
     background-color: red;
   }
 
-  .el-table--border,
-  .el-table--group {
+  .el-table--border, .el-table--group {
     border-color: red;
   }
 
-  .el-table td,
-  .el-table th.is-leaf {
+  .el-table td, .el-table th.is-leaf {
     border-bottom: 1px solid red;
   }
 
-  .el-table--border th,
-  .el-table--border th.gutter:last-of-type {
+  .el-table--border th, .el-table--border th.gutter:last-of-type {
     border-bottom: 1px solid red;
   }
 
-  .el-table--border td,
-  .el-table--border th {
+  .el-table--border td, .el-table--border th {
     border-right: 1px solid red;
   }
 
