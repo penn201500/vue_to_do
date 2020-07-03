@@ -10,16 +10,16 @@
     <el-row>
       <el-table :data="todoList" style="width: 100%" border>
         <el-table-column prop="id" label="id" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.pk }}</template>
+          <template slot-scope="scope"> {{ scope.row.id }}</template>
         </el-table-column>
         <el-table-column prop="priority" label="priority" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.fields.priority }}</template>
+          <template slot-scope="scope"> {{ scope.row.priority }}</template>
         </el-table-column>
         <el-table-column prop="name" label="name" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.fields.name }}</template>
+          <template slot-scope="scope"> {{ scope.row.name }}</template>
         </el-table-column>
         <el-table-column prop="add_time" label="add_time" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.fields.add_time }}</template>
+          <template slot-scope="scope"> {{ scope.row.add_time }}</template>
         </el-table-column>
       </el-table>
     </el-row>
