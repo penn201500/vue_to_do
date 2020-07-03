@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <el-row display="margin-top:10px">
-      <el-input v-model="input" placeholder="input task"
+      <el-input v-model="input_task" placeholder="input task"
+                style="display:inline-table; width: 10%; float:left"></el-input>
+      <el-input v-model="input_priority" placeholder="input priority"
                 style="display:inline-table; width: 10%; float:left"></el-input>
       <el-button type="primary" @click="addTodo()" style="float:left; margin: 2px;">add</el-button>
     </el-row>
@@ -29,7 +31,8 @@ export default {
   name: 'home',
   data () {
     return {
-      input: '',
+      input_task: '',
+      input_priority: '',
       todoList: []
     }
   },
@@ -38,7 +41,7 @@ export default {
   },
   methods: {
     addTodo () {
-      this.$http.get('http://127.0.0.1:8000/api/add_todo?name=' + this.input)
+      this.$http.get('http://127.0.0.1:8000/api/add_todo/', {params: {name: this.input_task, priority: this.input_priority}})
         .then((response) => {
           var res = JSON.parse(response.bodyText)
           if (res.error_num === 0) {
