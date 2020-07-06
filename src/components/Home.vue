@@ -95,6 +95,7 @@ export default {
         var res = response.data
         console.log(res)
         if (res.error_num === 0) {
+          window.location.reload()  // 强制刷新页面
           this.showTodos()
         } else {
           this.$message.error('query fail')
