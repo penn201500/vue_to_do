@@ -6,11 +6,15 @@
       <el-input v-model="input_priority" placeholder="input priority"
                 style="display:inline-table; width: 10%; float:left"></el-input>
       <el-button type="primary" @click="addTodo()" style="float:left; margin: 2px;">add</el-button>
+      <el-button type="primary" @click="delTodo()" style="float:left; margin: 2px;">delete</el-button>
     </el-row>
     <el-row>
-      <el-table :data="todoList" style="width: 100%" border>
+      <el-table :data="todoList" style="width: 100%" border highlight-current-row>
         <el-table-column prop="id" label="id" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.id }} </template>
+          <template slot-scope="scope">
+            <el-checkbox v-model="scope.row.checked"  @change="processCheckBox(scope.row.id)"></el-checkbox>
+            {{ scope.row.id }}
+          </template>
         </el-table-column>
         <el-table-column prop="priority" label="priority" min-width="100">
           <template slot-scope="scope"> {{ scope.row.priority }} </template>
@@ -33,7 +37,9 @@ export default {
     return {
       input_task: '',
       input_priority: '',
-      todoList: []
+      todoList: [],
+      checked: true,
+      checkBoxData: []
     }
   },
   mounted: function () {
@@ -76,9 +82,33 @@ export default {
             console.log(res.msg)
           }
         })
+    },
+    delTodo () {
+      this.$axios({
+        method: 'delete',
+        url: 'http://127.0.0.1:8000/api/del_todos/', // 接口地址
+        data: {
+          ids: this.checkBoxData, // 传接口参数
+        }
+      })
+      .then((response) => {
+        var res = response.data
+        console.log(res)
+        if (res.error_num === 0) {
+          this.showTodos()
+        } else {
+          this.$message.error('query fail')
+          console.log(res.msg)
+        }
+      })
+    },
+    processCheckBox (value) {
+      if (this.checked === true) {
+        this.checkBoxData.push(value)
+      }
+    },
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
