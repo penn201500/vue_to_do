@@ -1,32 +1,48 @@
 <template>
   <div class="home">
-    <el-row display="margin-top:10px">
-      <el-input v-model="input_task" placeholder="input task"
-                style="display:inline-table; width: 10%; float:left"></el-input>
-      <el-input v-model="input_priority" placeholder="input priority"
-                style="display:inline-table; width: 10%; float:left"></el-input>
-      <el-button type="primary" @click="addTodo()" style="float:left; margin: 2px;">add</el-button>
-      <el-button type="primary" @click="delTodo()" style="float:left; margin: 2px;">delete</el-button>
-    </el-row>
+    SIMPLE TODOS：
     <el-row>
-      <el-table :data="todoList" style="width: 100%" border highlight-current-row>
-        <el-table-column prop="id" label="id" min-width="100">
-          <template slot-scope="scope">
-            <el-checkbox v-model="scope.row.checked"  @change="processCheckBox(scope.row.id)"></el-checkbox>
-            {{ scope.row.id }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="priority" label="priority" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.priority }} </template>
-        </el-table-column>
-        <el-table-column prop="name" label="name" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.name }} </template>
-        </el-table-column>
-        <el-table-column prop="add_time" label="add_time" min-width="100">
-          <template slot-scope="scope"> {{ scope.row.add_time }} </template>
-        </el-table-column>
-      </el-table>
+      <el-input
+          placeholder="请输入优先级"
+          style="display:inline-table; width: 10%; float:left"
+          suffix-icon="el-icon-date"
+          v-model="input_priority">
+      </el-input>
+      <el-input
+          placeholder="请输入内容"
+          prefix-icon="el-icon-search"
+          style="display:inline-table; width: 10%; float:left"
+          v-model="input_task">
+      </el-input>
+      <el-button @click="addTodo()" style="float:left; margin: 2px;" type="primary">增加</el-button>
+      <el-button @click="delTodo()" style="float:left; margin: 2px;" type="primary">删除</el-button>
     </el-row>
+    <el-table
+        :data="todoList"
+        border
+        height="250"
+        style="width: 100%"
+        highlight-current-row>
+      <el-table-column
+          label="id"
+          prop="id"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          label="优先级"
+          prop="priority"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          label="任务名"
+          prop="name"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          label="添加时间"
+          prop="add_time">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -55,33 +71,33 @@ export default {
           priority: this.input_priority // 传接口参数
         }
       })
-        .then(response => {
-          var res = response.data
-          console.log(res)
-          if (res.error_num === 0) {
-            this.showTodos()
-          } else {
-            this.$message.error('add fail')
-            console.log(res.msg)
-          }
-        })
-        .catch(error => console.log(error, 'error')) // 失败的返回
+          .then(response => {
+            var res = response.data
+            console.log(res)
+            if (res.error_num === 0) {
+              this.showTodos()
+            } else {
+              this.$message.error('add fail')
+              console.log(res.msg)
+            }
+          })
+          .catch(error => console.log(error, 'error')) // 失败的返回
     },
     showTodos () {
       this.$axios({
         method: 'get',
         url: 'http://127.0.0.1:8000/api/show_todos/' // 接口地址
       })
-        .then((response) => {
-          var res = response.data
-          console.log(res)
-          if (res.error_num === 0) {
-            this.todoList = res.list
-          } else {
-            this.$message.error('query fail')
-            console.log(res.msg)
-          }
-        })
+          .then((response) => {
+            var res = response.data
+            console.log(res)
+            if (res.error_num === 0) {
+              this.todoList = res.list
+            } else {
+              this.$message.error('query fail')
+              console.log(res.msg)
+            }
+          })
     },
     delTodo () {
       this.$axios({
@@ -91,64 +107,64 @@ export default {
           ids: this.checkBoxData, // 传接口参数
         }
       })
-      .then((response) => {
-        var res = response.data
-        console.log(res)
-        if (res.error_num === 0) {
-          window.location.reload()  // 强制刷新页面
-          this.showTodos()
-        } else {
-          this.$message.error('query fail')
-          console.log(res.msg)
-        }
-      })
+          .then((response) => {
+            var res = response.data
+            console.log(res)
+            if (res.error_num === 0) {
+              window.location.reload()  // 强制刷新页面
+              this.showTodos()
+            } else {
+              this.$message.error('query fail')
+              console.log(res.msg)
+            }
+          })
     },
     processCheckBox (value) {
       if (this.checked === true) {
         this.checkBoxData.push(value)
       }
     },
-    }
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .el-table--border:after, .el-table--group:after, .el-table:before {
-    background-color: red;
-  }
+.el-table--border:after, .el-table--group:after, .el-table:before {
+  background-color: red;
+}
 
-  .el-table--border, .el-table--group {
-    border-color: red;
-  }
+.el-table--border, .el-table--group {
+  border-color: red;
+}
 
-  .el-table td, .el-table th.is-leaf {
-    border-bottom: 1px solid red;
-  }
+.el-table td, .el-table th.is-leaf {
+  border-bottom: 1px solid red;
+}
 
-  .el-table--border th, .el-table--border th.gutter:last-of-type {
-    border-bottom: 1px solid red;
-  }
+.el-table--border th, .el-table--border th.gutter:last-of-type {
+  border-bottom: 1px solid red;
+}
 
-  .el-table--border td, .el-table--border th {
-    border-right: 1px solid red;
-  }
+.el-table--border td, .el-table--border th {
+  border-right: 1px solid red;
+}
 
-  h1, h2 {
-    font-weight: normal;
-  }
+h1, h2 {
+  font-weight: normal;
+}
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
 
-  a {
-    color: #42b983;
-  }
+a {
+  color: #42b983;
+}
 </style>

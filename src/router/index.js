@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import About from '@/components/About'
 import ElementUI from 'element-ui'
 import vueResource from 'vue-resource'
 import 'element-ui/lib/theme-chalk/table.css'
@@ -28,6 +29,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About
     }
   ]
 })
