@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    SIMPLE TODOS：
+  <div class="home" style="margin-top: 30px">
+    SIMPLE TODOS
     <el-row>
       <el-input
           placeholder="请输入优先级"
@@ -19,10 +19,17 @@
     </el-row>
     <el-table
         :data="todoList"
+        @selection-change="handleSelectionChange"
+        tooltip-effect="dark"
+        ref="multipleTable"
+        highlight-current-row
         border
         max-height="100%"
-        style="width: 100%"
-        highlight-current-row>
+        style="width: 100%">
+      <el-table-column
+          type="selection"
+          width="55">
+      </el-table-column>
       <el-table-column
           label="id"
           prop="id">
@@ -40,6 +47,7 @@
           prop="add_time">
       </el-table-column>
     </el-table>
+    <el-button @click="toggleSelection()">取消选择</el-button>
   </div>
 </template>
 
@@ -101,7 +109,8 @@ export default {
         method: 'delete',
         url: 'http://127.0.0.1:8000/api/del_todos/', // 接口地址
         data: {
-          ids: this.checkBoxData, // 传接口参数
+          // ids: this.checkBoxData, // 传接口参数
+          ids: this.multipleSelection
         }
       })
           .then((response) => {
@@ -116,11 +125,20 @@ export default {
             }
           })
     },
-    processCheckBox (value) {
-      if (this.checked === true) {
-        this.checkBoxData.push(value)
-      }
-    },
+      toggleSelection(rows) {
+        if (rows) {
+          rows.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+          this.$refs.multipleTable.clearSelection();
+        }
+      },
+      handleSelectionChange(val) {
+        let arr=[]
+        val.forEach(i=>{arr.push(i.id)})
+        this.multipleSelection = arr
+      },
   }
 }
 </script>
