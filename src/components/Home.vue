@@ -20,23 +20,20 @@
     <el-table
         :data="todoList"
         border
-        height="250"
+        max-height="100%"
         style="width: 100%"
         highlight-current-row>
       <el-table-column
           label="id"
-          prop="id"
-          width="180">
+          prop="id">
       </el-table-column>
       <el-table-column
           label="优先级"
-          prop="priority"
-          width="180">
+          prop="priority">
       </el-table-column>
       <el-table-column
           label="任务名"
-          prop="name"
-          width="180">
+          prop="name">
       </el-table-column>
       <el-table-column
           label="添加时间"
