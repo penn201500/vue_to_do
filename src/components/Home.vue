@@ -5,15 +5,25 @@
       <el-input
           placeholder="请输入优先级"
           style="display:inline-table; width: 10%; float:left"
-          suffix-icon="el-icon-date"
           v-model="input_priority">
       </el-input>
       <el-input
           placeholder="请输入内容"
-          prefix-icon="el-icon-search"
           style="display:inline-table; width: 10%; float:left"
           v-model="input_task">
       </el-input>
+      <el-select
+          v-model="value"
+          filterable
+          placeholder="请选择类型"
+          style="float:left">
+        <el-option
+            v-for="item in type_options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
       <el-button @click="addTodo()" style="float:left; margin: 2px;" type="primary">增加</el-button>
       <el-button @click="delTodo()" style="float:left; margin: 2px;" type="primary">删除</el-button>
     </el-row>
@@ -64,7 +74,18 @@ export default {
       input_priority: '',
       todoList: [],
       checked: true,
-      checkBoxData: []
+      checkBoxData: [],
+      type_options: [{
+          value: '0',
+          label: '生活'
+        }, {
+          value: '1',
+          label: '工作'
+        }, {
+          value: '2',
+          label: '充电'
+        }],
+      value: ''
     }
   },
   mounted: function () {
@@ -77,7 +98,8 @@ export default {
         url: 'http://127.0.0.1:8000/api/add_todo/', // 接口地址
         data: {
           name: this.input_task, // 传接口参数
-          priority: this.input_priority // 传接口参数
+          priority: this.input_priority, // 传接口参数
+          todo_type: this.type_options[0].value, // 传接口参数
         }
       })
           .then(response => {

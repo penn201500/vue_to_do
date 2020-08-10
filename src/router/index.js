@@ -5,6 +5,7 @@ import About from '@/components/About'
 import ElementUI from 'element-ui'
 import vueResource from 'vue-resource'
 import 'element-ui/lib/theme-chalk/table.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 
 Vue.use(vueResource, vueResource)
