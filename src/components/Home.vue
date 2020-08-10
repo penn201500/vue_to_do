@@ -4,19 +4,19 @@
     <el-row>
       <el-input
           placeholder="请输入优先级"
-          style="display:inline-table; width: 10%; float:left"
+          style="display:inline-table; margin-left: 2px; width: 10%; float:left"
           v-model="input_priority">
       </el-input>
       <el-input
           placeholder="请输入内容"
-          style="display:inline-table; width: 10%; float:left"
+          style="display:inline-table; margin-left: 2px; width: 10%; float:left"
           v-model="input_task">
       </el-input>
       <el-select
           v-model="input_type"
           filterable
           placeholder="请选择类型"
-          style="float:left">
+          style="margin-left: 2px; float:left">
         <el-option
             v-for="item in type_options"
             :key="item.value"
@@ -24,8 +24,18 @@
             :value="item.value">
         </el-option>
       </el-select>
-      <el-button @click="addTodo()" style="float:left; margin: 2px;" type="primary">增加</el-button>
-      <el-button @click="delTodo()" style="float:left; margin: 2px;" type="primary">删除</el-button>
+<!--      <el-input-->
+<!--          placeholder="全局搜索"-->
+<!--          style="display:inline-table; width: 10%; float:left"-->
+<!--          prefix-icon="el-icon-search"-->
+<!--          v-model="search">-->
+<!--      </el-input>-->
+      <el-button @click="addTodo()" style="float:left; margin-left: 2px;" type="primary">增加</el-button>
+      <el-button @click="delTodo()" style="float:left; margin-left: 2px;" type="primary">删除</el-button>
+<!--      <el-button @click="search()" style="float:left; margin: 2px;" type="primary">搜索</el-button>-->
+      <el-input placeholder="全局搜索" v-model="search_txt" style="float:left; margin: 2px;">
+        <el-button @click="search()" slot="append" icon="el-icon-search"></el-button>
+      </el-input>
     </el-row>
     <el-table
         :data="todoList"
@@ -85,7 +95,8 @@ export default {
           value: '2',
           label: '充电'
         }],
-      input_type: ''
+      input_type: '',
+      search_txt: ''
     }
   },
   mounted: function () {
@@ -145,6 +156,25 @@ export default {
             if (res.error_num === 0) {
               window.location.reload()  // 强制刷新页面
               this.showTodos()
+            } else {
+              this.$message.error('query fail')
+              console.log(res.msg)
+            }
+          })
+    },
+    search () {
+      this.$axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/api/search/', // 接口地址
+        data: {
+          search_txt: this.search_txt
+        }
+      })
+          .then((response) => {
+            var res = response.data
+            console.log(res)
+            if (res.error_num === 0) {
+              this.todoList = res.list
             } else {
               this.$message.error('query fail')
               console.log(res.msg)
