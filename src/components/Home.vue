@@ -13,7 +13,7 @@
           v-model="input_task">
       </el-input>
       <el-select
-          v-model="value"
+          v-model="input_type"
           filterable
           placeholder="请选择类型"
           style="float:left">
@@ -85,7 +85,7 @@ export default {
           value: '2',
           label: '充电'
         }],
-      value: ''
+      input_type: ''
     }
   },
   mounted: function () {
@@ -99,7 +99,7 @@ export default {
         data: {
           name: this.input_task, // 传接口参数
           priority: this.input_priority, // 传接口参数
-          todo_type: this.type_options[0].value, // 传接口参数
+          todo_type: this.input_type, // 传接口参数
         }
       })
           .then(response => {
