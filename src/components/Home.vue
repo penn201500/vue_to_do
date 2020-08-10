@@ -46,6 +46,10 @@
           label="添加时间"
           prop="add_time">
       </el-table-column>
+      <el-table-column
+          label="类型"
+          prop="todo_type">
+      </el-table-column>
     </el-table>
     <el-button @click="toggleSelection()">取消选择</el-button>
   </div>
