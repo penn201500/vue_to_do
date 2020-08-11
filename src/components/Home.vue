@@ -33,7 +33,7 @@
       <el-button @click="addTodo()" style="float:left; margin-left: 2px;" type="primary">增加</el-button>
       <el-button @click="delTodo()" style="float:left; margin-left: 2px;" type="primary">删除</el-button>
 <!--      <el-button @click="search()" style="float:left; margin: 2px;" type="primary">搜索</el-button>-->
-      <el-input placeholder="全局搜索" v-model="search_txt" style="float:left; margin-top: 3px">
+      <el-input placeholder="全局搜索" v-model="search_txt" @keyup.enter.native="search()" style="float:left; margin-top: 3px">
         <el-button @click="search()" slot="append" icon="el-icon-search"></el-button>
       </el-input>
     </el-row>
