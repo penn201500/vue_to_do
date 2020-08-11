@@ -124,6 +124,7 @@ export default {
             }
           })
           .catch(error => console.log(error, 'error')) // 失败的返回
+      this.clearInput()
     },
     showTodos () {
       this.$axios({
@@ -197,6 +198,12 @@ export default {
         val.forEach(i=>{arr.push(i.id)})
         this.multipleSelection = arr
       },
+    clearInput() {
+        this.input_task=''
+        this.input_priority=''
+        this.input_type=''
+        this.search_txt=''
+    },
   }
 }
 </script>
