@@ -1,10 +1,10 @@
 <template>
   <div class="home" style="margin-top: 30px">
     SIMPLE TODOS
-    <el-row>
+    <el-row style="margin-top: 20px">
       <el-input
           placeholder="请输入优先级"
-          style="display:inline-table; margin-left: 2px; width: 10%; float:left"
+          style="display:inline-table; width: 10%; float:left"
           v-model="input_priority">
       </el-input>
       <el-input
@@ -33,7 +33,7 @@
       <el-button @click="addTodo()" style="float:left; margin-left: 2px;" type="primary">增加</el-button>
       <el-button @click="delTodo()" style="float:left; margin-left: 2px;" type="primary">删除</el-button>
 <!--      <el-button @click="search()" style="float:left; margin: 2px;" type="primary">搜索</el-button>-->
-      <el-input placeholder="全局搜索" v-model="search_txt" style="float:left; margin: 2px;">
+      <el-input placeholder="全局搜索" v-model="search_txt" style="float:left; margin-top: 3px">
         <el-button @click="search()" slot="append" icon="el-icon-search"></el-button>
       </el-input>
     </el-row>
@@ -45,7 +45,7 @@
         highlight-current-row
         border
         max-height="100%"
-        style="width: 100%">
+        style="width: 100%; margin-top: 10px">
       <el-table-column
           type="selection"
           width="55">
@@ -71,7 +71,7 @@
           prop="todo_type">
       </el-table-column>
     </el-table>
-    <el-button @click="toggleSelection()">取消选择</el-button>
+    <el-button @click="toggleSelection()" style="float:left;">取消选择</el-button>
   </div>
 </template>
 
@@ -163,13 +163,15 @@ export default {
           })
     },
     search () {
-      this.$axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/search/', // 接口地址
-        data: {
-          search_txt: this.search_txt
-        }
-      })
+      console.log(this.search_txt)
+      this.$axios.get(
+        'http://127.0.0.1:8000/api/search/', // 接口地址
+         {
+           params: {
+              search_txt: this.search_txt
+            }
+          }
+      )
           .then((response) => {
             var res = response.data
             console.log(res)
