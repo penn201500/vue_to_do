@@ -118,6 +118,7 @@ export default {
             console.log(res)
             if (res.error_num === 0) {
               this.showTodos()
+              this.$message.success('add success')
             } else {
               this.$message.error('add fail')
               console.log(res.msg)
@@ -136,6 +137,7 @@ export default {
             console.log(res)
             if (res.error_num === 0) {
               this.todoList = res.list
+              // this.$message.success('get todos list success')
             } else {
               this.$message.error('query fail')
               console.log(res.msg)
@@ -157,6 +159,7 @@ export default {
             if (res.error_num === 0) {
               window.location.reload()  // 强制刷新页面
               this.showTodos()
+              this.$message.success('del success')
             } else {
               this.$message.error('query fail')
               console.log(res.msg)
@@ -167,11 +170,9 @@ export default {
       console.log(this.search_txt)
       this.$axios.get(
         'http://127.0.0.1:8000/api/search/', // 接口地址
-         {
-           params: {
+            {
               search_txt: this.search_txt
             }
-          }
       )
           .then((response) => {
             var res = response.data
