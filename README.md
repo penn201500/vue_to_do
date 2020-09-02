@@ -1,5 +1,9 @@
 # vue_todo
 
+## snapshot
+![simple_todos](media/simple_todos.png)
+
+
 ## Project setup
 ```
 npm install
