@@ -106,7 +106,7 @@ export default {
     addTodo () {
       this.$axios({
         method: 'post',
-        url: 'http://127.0.0.1:8000/api/add_todo/', // 接口地址
+        url: 'http://backend_server:port/api/add_todo/', // 接口地址
         data: {
           name: this.input_task, // 传接口参数
           priority: this.input_priority, // 传接口参数
@@ -130,7 +130,7 @@ export default {
     showTodos () {
       this.$axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/api/show_todos/' // 接口地址
+        url: 'http://backend_server:port/api/show_todos/' // 接口地址
       })
           .then((response) => {
             var res = response.data
@@ -147,7 +147,7 @@ export default {
     delTodo () {
       this.$axios({
         method: 'delete',
-        url: 'http://127.0.0.1:8000/api/del_todos/', // 接口地址
+        url: 'http://backend_server:port/api/del_todos/', // 接口地址
         data: {
           // ids: this.checkBoxData, // 传接口参数
           ids: this.multipleSelection
@@ -169,7 +169,7 @@ export default {
     search () {
       console.log(this.search_txt)
 
-      this.$axios.get('http://127.0.0.1:8000/api/search/', // 接口地址
+      this.$axios.get('http://backend_server:port/api/search/', // 接口地址
           {
             params: {
               search_txt: this.search_txt
