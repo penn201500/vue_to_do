@@ -168,11 +168,13 @@ export default {
     },
     search () {
       console.log(this.search_txt)
-      this.$axios.get(
-        'http://127.0.0.1:8000/api/search/', // 接口地址
-            {
+
+      this.$axios.get('http://127.0.0.1:8000/api/search/', // 接口地址
+          {
+            params: {
               search_txt: this.search_txt
             }
+          }
       )
           .then((response) => {
             var res = response.data
